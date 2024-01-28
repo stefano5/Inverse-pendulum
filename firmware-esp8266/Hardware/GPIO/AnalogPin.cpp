@@ -1,3 +1,5 @@
+#pragma once
+
 #include "AnalogPin.hpp"
 
 
@@ -56,7 +58,9 @@ void AnalogPin::pwmWrite(int8_t val) {
             FATAL_ERROR;    // non si pò fare una analogWrite su un pin inizializzato come input
         case OUTPUT:
         case OUTPUT_OPEN_DRAIN:
-            analogWrite(pin, map(val, 0, 100, minValue, maxValue));
+            Serial.println(val);
+            Serial.println(map(val, minValue, maxValue, 0, 255));
+            analogWrite(pin, map(val, minValue, maxValue, 0, 255));
             break;
         default:
             FATAL_ERROR; // altri casi non gestiti, vedere Arduino.h

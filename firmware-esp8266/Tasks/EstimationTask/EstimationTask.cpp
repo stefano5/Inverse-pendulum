@@ -10,11 +10,14 @@ void EstimationTask::initialize() {
 }
 
 void EstimationTask::run() {
-    outStream() << "Period: [" << (uint16_t)getPeriod() << "] ms, priority': [" << NAME_PRIORITY(getPriority()) << "]" << endl;
+    //outStream() << "Period: [" << (uint16_t)getPeriod() << "] ms, priority': [" << NAME_PRIORITY(getPriority()) << "]" << endl;
+    
     updateMeasurements();
     angles.x_angle = getMeasure(Sensors_t::X_ANGLE);
-    angles.y_angle = getMeasure(Sensors_t::Y_ANGLE);
+    angles.y_angle = getMeasure(Sensors_t::Y_ANGLE) + 90-5;
     angles.z_angle = getMeasure(Sensors_t::Z_ANGLE);
+    outStream() << "x:" << angles.x_angle << "; y: " << angles.y_angle << "; z: " << angles.z_angle << endl;
+    
 }
 
 void EstimationTask::handleMessage(uint8_t taskSender, uint8_t messageType, uint32_t messageBody) {

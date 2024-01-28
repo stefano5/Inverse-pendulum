@@ -17,7 +17,12 @@
 #include "CmdNotification.hpp"
 
 String acceptedCommands[] = {
-	"setwifi",	// TODO
+	"inl",
+	"decl",
+	"inr",
+	"decr",
+	"for",
+	"back"
 };
 
 class SerialInputManager : public Task, public DebugPrint, public CmdNotification {

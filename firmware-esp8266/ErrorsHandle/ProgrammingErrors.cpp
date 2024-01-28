@@ -8,7 +8,7 @@
 
 
 inline void __fastPrintStr(const char* str) {
-    //Serial.print((const char*)str);
+    Serial.print((const char*)str);
     // send to serial
 }
 

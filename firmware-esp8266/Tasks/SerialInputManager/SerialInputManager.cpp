@@ -23,6 +23,9 @@ int16_t SerialInputManager::getIndex(String key) {
 }
 
 void SerialInputManager::run() {
+	static int vall = 0;
+	static int valr = 0;
+	
 	if (isThereIncomingData()) {
 		String incomingData = getIncomingData(); 	//read until timeout
 		incomingData.trim();
@@ -33,8 +36,17 @@ void SerialInputManager::run() {
 		outStream() << "key: [" << key << "]" << endl;
 
 		switch (getIndex(key)) {
-		case 0:	// example
-
+		case 0: vall += 10;
+			break;
+		case 1:vall -= 10;
+			break;
+		case 2: valr += 10;
+			break;
+		case 3: valr -= 10;
+			break;
+		case 4:
+			break;
+		case 5:
 			break;
 		default:
 			outStream() << ": [" << key << "] not found as key. Available commands are:" << endl;

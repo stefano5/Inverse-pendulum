@@ -1,6 +1,4 @@
-    #ifndef HARDWARE_GPIO_ANALOGPIN_HPP
-#define HARDWARE_GPIO_ANALOGPIN_HPP
-
+#pragma once
 
 #include "../../ErrorsHandle/ProgrammingErrors.hpp"
 
@@ -23,4 +21,3 @@ private:
     int16_t maxValue;    
 };
 
-#endif

@@ -14,6 +14,11 @@
 #include "Serial/FWSerial.cpp"
 #include "Serial/DebugPrint.cpp"
 
+// hardware
+#include "Hardware/GPIO/AnalogPin.cpp"
+#include "Hardware/GPIO/GPIO.cpp"
+#include "Hardware/H-Bridge/HBridge.hpp"
+
 #include "Scheduler/Message.cpp"
 #include "Scheduler/Scheduler.cpp"
 #include "Scheduler/Task.cpp"
@@ -28,21 +33,28 @@ Ticker timer;
 
 uint8_t flag_1ms_elapsed;
 
-void onTimerInterrupt() {   
+void onTimerInterrupt() {
   flag_1ms_elapsed = 1;  
 }
 
+// hardware
+AnalogPin pwm_left(D5, OUTPUT, 0, 100);
+AnalogPin pwm_right(D6, OUTPUT, 0, 100);
+GPIO dir_left(D0, GPIO::IOMode::OUTPUT_MODE);
+GPIO dir_right(D7, GPIO::IOMode::OUTPUT_MODE);
+HBridge motor_left(&pwm_left, &dir_left);
+HBridge motor_right(&pwm_right, &dir_right);
 
 // task handler
 Scheduler scheduler;
 //AnalogInput exampleTask(myPin.pin, "Example task", (uint8_t)NameTask::exampleTask, Task::Period_t::T_100ms, Task::Priority_t::low); // example
-ControlTask controlTask("Control task", (uint8_t)NameTask::control, Task::Period_t::T_10ms, Task::Priority_t::high);
-EstimationTask estimationTask("Control task", (uint8_t)NameTask::Estimation, Task::Period_t::T_100ms, Task::Priority_t::high);
+ControlTask controlTask(&motor_left, &motor_right, "Control task", (uint8_t)NameTask::Control, Task::Period_t::T_100ms, Task::Priority_t::medium);
+EstimationTask estimationTask("Estimation task", (uint8_t)NameTask::Estimation, Task::Period_t::T_100ms, Task::Priority_t::high);
 SerialInputManager serialT("Serial Manager", (uint8_t)NameTask::SerialManager, Task::Period_t::T_50ms, Task::Priority_t::high);     // this task receive serial messages
 
-
 void cpp_main(void) {
-  FWSerial::setHandle(&Serial/*put here SERIAL handle, eg: 'Serial'*/);
+  FWSerial::setHandle(&Serial);
+
 
   scheduler.setup();
   flag_1ms_elapsed = 0;

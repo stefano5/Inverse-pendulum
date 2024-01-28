@@ -2,11 +2,11 @@
 
 
 void SensorsHandler::initSensors() {
-
+    
     Wire.begin();
     mpu6050.begin();
     mpu6050.calcGyroOffsets(true);
-    FATAL_ERROR_IF_FALSE(isSensorOk());
+    FATAL_ERROR_IF_FALSE(isSensorOk());     // il sensore non è collegato / ha un indirizzo errato
 
 }
 
@@ -49,7 +49,7 @@ float SensorsHandler::getMeasure(SensorsHandler::Sensors_t ch) {
 }
 
 bool SensorsHandler::isSensorOk() {
-    ASSERT_PTR(Wire);
+    ASSERT_PTR(&Wire);
 
     Wire.beginTransmission(MPU6050_ADDR);
     return Wire.endTransmission() == 0; // true : ok, false: address not found

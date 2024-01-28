@@ -75,6 +75,13 @@ public:
         return *this;
     }
 
+    FWSerial& operator <<(const float &s) {
+        char temp[16];
+        sprintf(temp, "%.2f", s);
+        print(temp);
+        return *this;
+    }
+
 
     static void setHandle(HardwareSerial* usartHandle) {
         handle = usartHandle;

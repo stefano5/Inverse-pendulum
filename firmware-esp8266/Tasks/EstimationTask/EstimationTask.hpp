@@ -6,7 +6,7 @@
 #include "../../Serial/DebugPrint.hpp"
 #include "../../Hardware/Sensors/SensorsHandler.cpp"
 
-class EstimationTask : public Task, public, public SensorsHandler {
+class EstimationTask : public Task, public DebugPrint, public SensorsHandler {
 public:	
 
     enum class Message_t : uint8_t {
@@ -20,16 +20,14 @@ public:
     };
 
 
-    EstimationTask(int pin, const char* name, uint8_t _taskId, Period_t period, Priority_t priority) : 
-    Task(name, _taskId, period, priority), DebugPrint(getTaskName()), taskId(_taskId) {}
+    EstimationTask(const char* name, uint8_t _taskId, Period_t period, Priority_t priority) : 
+    Task(name, _taskId, period, priority), DebugPrint(getTaskName()) {}
 
 	void initialize() override;
 	void run() override;
     void handleMessage(uint8_t taskSender, uint8_t messageType, uint32_t messageBody) override;
 
 private:
-    uint32_t count=0;
-    uint8_t taskId;
     Values angles;
 };
 

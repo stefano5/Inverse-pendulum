@@ -27,8 +27,10 @@ public:
 
     void initSensors();
 
-	int16_t getMeasure(SensorsHandler::Sensors_t ch);
+	float getMeasure(SensorsHandler::Sensors_t ch);
 	bool isSensorOk();
+    void updateMeasurements();
+
 
 private:
 

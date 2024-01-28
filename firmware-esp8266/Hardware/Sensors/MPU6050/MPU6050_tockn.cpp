@@ -52,7 +52,7 @@ void MPU6050::calcGyroOffsets(bool console, uint16_t delayBefore, uint16_t delay
 	float x = 0, y = 0, z = 0;
 	int16_t rx, ry, rz;
 
-  delay(delayBefore);
+  //delay(delayBefore);
 	if(console){
     Serial.println();
     Serial.println("========================================");
@@ -88,7 +88,7 @@ void MPU6050::calcGyroOffsets(bool console, uint16_t delayBefore, uint16_t delay
     Serial.print("Z : ");Serial.println(gyroZoffset);
     Serial.println("Program will start after 3 seconds");
     Serial.print("========================================");
-		delay(delayAfter);
+		//delay(delayAfter);
 	}
 }
 
