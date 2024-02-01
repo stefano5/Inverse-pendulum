@@ -17,6 +17,9 @@ public:
         float x_angle;
         float y_angle;
         float z_angle;
+        float pitch_acc;
+        float pitch_v_ang;
+        float pitch_acc_angular;
     };
 
 

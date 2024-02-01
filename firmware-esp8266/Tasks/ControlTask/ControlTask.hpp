@@ -21,6 +21,8 @@ private:
     EstimationTask::Values *angles;
     PIDController controller_left;
     PIDController controller_right;
+    PIDController controller_left_speed;
+    PIDController controller_right_speed;
     
     HBridge *motor_left;
     HBridge *motor_right;

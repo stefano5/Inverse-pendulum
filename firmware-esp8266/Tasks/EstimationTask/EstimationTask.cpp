@@ -14,9 +14,13 @@ void EstimationTask::run() {
     
     updateMeasurements();
     angles.x_angle = getMeasure(Sensors_t::X_ANGLE);
-    angles.y_angle = getMeasure(Sensors_t::Y_ANGLE) + 90-5;
+    angles.y_angle = getMeasure(Sensors_t::Y_ANGLE) + 90;
     angles.z_angle = getMeasure(Sensors_t::Z_ANGLE);
-    outStream() << "x:" << angles.x_angle << "; y: " << angles.y_angle << "; z: " << angles.z_angle << endl;
+    angles.pitch_acc = getMeasure(Sensors_t::ACC_Y);
+    angles.pitch_v_ang = getMeasure(Sensors_t::GYRO_Y);
+    angles.pitch_acc_angular = getMeasure(Sensors_t::ANG_ACC_Y);
+
+    outStream() << "pitch: " << angles.y_angle << "; pitch rate: " << angles.pitch_v_ang << "; pitch acc: " << angles.pitch_acc << endl;
     
 }
 
