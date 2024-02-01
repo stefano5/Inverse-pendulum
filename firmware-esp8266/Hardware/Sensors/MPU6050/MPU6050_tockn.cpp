@@ -4,6 +4,8 @@ MPU6050::MPU6050(TwoWire &w){
   wire = &w;
   accCoef = 0.02f;
   gyroCoef = 0.98f;
+  accCoef = 0.12f;
+  gyroCoef = 0.88f;
 }
 
 MPU6050::MPU6050(TwoWire &w, float aC, float gC){
