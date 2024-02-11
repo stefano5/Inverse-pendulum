@@ -13,16 +13,22 @@
 #include "../../GlobalDependacies.hpp"
 
 #include "../../Serial/DebugPrint.hpp"
+#include "../ControlTask/ControlTask.cpp"
+
 
 #include "CmdNotification.hpp"
 
 String acceptedCommands[] = {
-	"inl",
-	"decl",
-	"inr",
-	"decr",
-	"for",
-	"back"
+	"inl",		// 0
+	"decl",		// 1
+	"inr",		// 2
+	"decr",		// 3
+	"for",		// 4
+	"back",		// 5
+	"reg1",		// 6
+	"reg2",		// 7
+	"printU",	// 8
+	"printEst"	// 9
 };
 
 class SerialInputManager : public Task, public DebugPrint, public CmdNotification {
@@ -35,6 +41,8 @@ public:
     void handleMessage(uint8_t taskSender, uint8_t messageType, uint32_t messageBody) override;
 
 protected:
+	
+	void checkStringAndUpdatePIDGains(const char* str, uint8_t calledFrom);
 
 	/**
 	 * @brief A task that wants to receive a specific command (i.e., a certain character) from the serial, calls this method.

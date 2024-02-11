@@ -58,8 +58,8 @@ void AnalogPin::pwmWrite(int8_t val) {
             FATAL_ERROR;    // non si pò fare una analogWrite su un pin inizializzato come input
         case OUTPUT:
         case OUTPUT_OPEN_DRAIN:
-            Serial.println(val);
-            Serial.println(map(val, minValue, maxValue, 0, 255));
+            //Serial.println(val);
+            //Serial.println(map(val, minValue, maxValue, 0, 255));
             analogWrite(pin, map(val, minValue, maxValue, 0, 255));
             break;
         default:

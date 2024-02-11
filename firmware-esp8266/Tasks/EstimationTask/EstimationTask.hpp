@@ -10,7 +10,8 @@ class EstimationTask : public Task, public DebugPrint, public SensorsHandler {
 public:	
 
     enum class Message_t : uint8_t {
-        GET_ANGLES_POINTER
+        GET_ANGLES_POINTER=29,
+        TOGGLE_DEBUG_PRINT
     };
 
     struct Values {
@@ -24,7 +25,7 @@ public:
 
 
     EstimationTask(const char* name, uint8_t _taskId, Period_t period, Priority_t priority) : 
-    Task(name, _taskId, period, priority), DebugPrint(getTaskName()) {}
+    Task(name, _taskId, period, priority), DebugPrint(getTaskName()), debugPrint(false) {}
 
 	void initialize() override;
 	void run() override;
@@ -32,6 +33,7 @@ public:
 
 private:
     Values angles;
+    bool debugPrint;
 };
 
 

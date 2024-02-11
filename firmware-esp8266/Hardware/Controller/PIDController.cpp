@@ -17,6 +17,11 @@ void PIDController::initController(float stepDerTime, float kp, float ki, float 
     this->Ta = Ta;
 }
 
+void PIDController::updatePidGains(float kp, float ki, float kd) {
+    this->kp = kp;
+    this->ki = ki;
+    this->kd = kd;
+}
 
 float PIDController::proportionalTerm(float e) {
     //Serial.print("kp: ");

@@ -6,6 +6,7 @@
 
 void EstimationTask::initialize() {
     outStream() << getInfoTask() << endl;
+    
     initSensors();
 }
 
@@ -20,14 +21,18 @@ void EstimationTask::run() {
     angles.pitch_v_ang = getMeasure(Sensors_t::GYRO_Y);
     angles.pitch_acc_angular = getMeasure(Sensors_t::ANG_ACC_Y);
 
-    outStream() << "pitch: " << angles.y_angle << "; pitch rate: " << angles.pitch_v_ang << "; pitch acc: " << angles.pitch_acc << endl;
-    
+    if (debugPrint) {
+        outStream() << "pitch: " << angles.y_angle << "; pitch rate: " << angles.pitch_v_ang << "; pitch acc: " << angles.pitch_acc << endl;
+    }
 }
 
 void EstimationTask::handleMessage(uint8_t taskSender, uint8_t messageType, uint32_t messageBody) {
     switch (messageType) {
         case (uint8_t)Message_t::GET_ANGLES_POINTER: 
             sendMessage(taskSender, messageType, (uint32_t)&angles);
+            break;
+        case (uint8_t)EstimationTask::Message_t::TOGGLE_DEBUG_PRINT:
+            debugPrint = !debugPrint;
             break;
         default:
             FATAL_ERROR;
